@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import BookingForm from '../components/bookings/BookingForm';
 
 const mockGazebos = [
-  { id: 'g01', name: 'Gazebo Echo', capacity: 6, price: '35.000 / jam', image: '/gazebo1.jpg' },
-  { id: 'g02', name: 'Gazebo Beach', capacity: 6, price: '40.000 / jam', image: '/gazebo2.jpg' },
-  { id: 'g03', name: 'Gazebo Camp', capacity: 10, price: '50.000 / jam', image: '/gazebo3.jpg' },
+  { id: 'g01', name: 'Gazebo Echo', capacity: 6, price: '35.000 / jam', image: '/gazebo1.jpg', description: 'Gazebo nyaman dengan pemandangan pantai yang indah.' },
+  { id: 'g02', name: 'Gazebo Beach', capacity: 6, price: '40.000 / jam', image: '/gazebo2.jpg', description: 'Gazebo luas dengan fasilitas lengkap dan area santai.' },
+  { id: 'g03', name: 'Gazebo Camp', capacity: 10, price: '50.000 / jam', image: '/gazebo3.jpg', description: 'Gazebo VIP dengan layanan eksklusif dan kenyamanan maksimal.' },
 ];
 
 const GazeboPage = () => {
@@ -20,7 +20,6 @@ const GazeboPage = () => {
 
   const handleBookingComplete = (details) => {
     console.log("Reservasi Gazebo Berhasil:", details);
-    // Asumsikan 'details' berisi: itemName, itemType, guestName, bookingDate, bookingTime, duration, totalPrice
     alert(`Reservasi ${details.itemName} (${details.itemType}) untuk ${details.guestName} pada ${details.bookingDate} pukul ${details.bookingTime} selama ${details.duration} jam berhasil! Total Biaya: Rp ${details.totalPrice ? details.totalPrice.toLocaleString('id-ID') : 'N/A'}`);
     setSelectedGazebo(null);
   };
@@ -35,7 +34,7 @@ const GazeboPage = () => {
         {selectedGazebo && (
           <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50 p-4 transition-opacity duration-300">
             <div className="bg-white p-6 rounded-lg shadow-xl max-w-md w-full relative animate-fade-in-down">
-               <button
+              <button
                 onClick={handleCloseForm}
                 className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-2xl font-bold"
                 aria-label="Tutup"
@@ -65,6 +64,7 @@ const GazeboPage = () => {
               />
               <div className="p-5 flex flex-col flex-grow">
                 <h3 className="text-2xl font-semibold text-gray-900 mb-2">{gazebo.name}</h3>
+                <p className="text-gray-600 mb-2 text-sm">{gazebo.description}</p>
                 <p className="text-gray-600 mb-1 text-sm">
                   <span className="font-medium">Kapasitas:</span> {gazebo.capacity} orang
                 </p>

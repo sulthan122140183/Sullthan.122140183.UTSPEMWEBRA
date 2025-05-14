@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthContext';
 
 const Header = () => {
+  const { user, logout } = useContext(AuthContext);
   // Style untuk link navigasi aktif (opsional)
   const activeClassName = "text-blue-300 font-semibold";
 
@@ -30,7 +32,7 @@ const Header = () => {
                 Home
               </NavLink>
               <NavLink
-                to="/booking-kamar"
+                to="/rooms-description"
                 className={({ isActive }) =>
                   `px-3 py-2 rounded-md text-sm font-medium hover:text-yellow-300 transition-colors ${isActive ? 'text-yellow-400 font-semibold' : 'text-gray-300'}`
                 }
@@ -38,14 +40,67 @@ const Header = () => {
                 Rooms
               </NavLink>
               <NavLink
-                to="/reservasi-gazebo"
+                to="/facilities-description"
                 className={({ isActive }) =>
                   `px-3 py-2 rounded-md text-sm font-medium hover:text-yellow-300 transition-colors ${isActive ? 'text-yellow-400 font-semibold' : 'text-gray-300'}`
                 }
               >
                 Facilities
               </NavLink>
-              {/* Tambah link Gallery, Restaurant, etc. jika ada */}
+              {user && (
+                <>
+                  <NavLink
+                    to="/profile"
+                    className={({ isActive }) =>
+                      `px-3 py-2 rounded-md text-sm font-medium hover:text-yellow-300 transition-colors ${isActive ? 'text-yellow-400 font-semibold' : 'text-gray-300'}`
+                    }
+                  >
+                    Profile
+                  </NavLink>
+                  {user.email === 'admin@example.com' && (
+                    <>
+                      <NavLink
+                        to="/admin-cms"
+                        className={({ isActive }) =>
+                          `px-3 py-2 rounded-md text-sm font-medium hover:text-yellow-300 transition-colors ${isActive ? 'text-yellow-400 font-semibold' : 'text-gray-300'}`
+                        }
+                      >
+                        Admin CMS
+                      </NavLink>
+                      <NavLink
+                        to="/admin-dashboard"
+                        className={({ isActive }) =>
+                          `px-3 py-2 rounded-md text-sm font-medium hover:text-yellow-300 transition-colors ${isActive ? 'text-yellow-400 font-semibold' : 'text-gray-300'}`
+                        }
+                      >
+                        Admin Dashboard
+                      </NavLink>
+                    </>
+                  )}
+                </>
+              )}
+            </div>
+
+              
+            {/* Auth Buttons */}
+            <div className="ml-4">
+              {user ? (
+                <button
+                  onClick={logout}
+                  className="bg-red-600 hover:bg-red-700 text-white font-semibold py-1 px-3 rounded"
+                >
+                  Logout
+                </button>
+              ) : (
+                <NavLink
+                  to="/login"
+                  className={({ isActive }) =>
+                    `px-3 py-2 rounded-md text-sm font-medium hover:text-yellow-300 transition-colors ${isActive ? 'text-yellow-400 font-semibold' : 'text-gray-300'}`
+                  }
+                >
+                  Login / Register
+                </NavLink>
+              )}
             </div>
 
             {/* Tombol Book Now */}
@@ -55,6 +110,8 @@ const Header = () => {
             >
               BOOK NOW
             </Link>
+
+
              {/* Tombol Menu Mobile (untuk nanti) */}
              {/* <div className="sm:hidden"> ... </div> */}
           </nav>

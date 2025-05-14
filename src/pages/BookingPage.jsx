@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import BookingForm from '../components/bookings/BookingForm';
 
 const mockRooms = [
-  { id: 'k01', name: 'Kamar Single', capacity: 2, price: '500.000', image: '/kamar1.jpg' },
-  { id: 'k02', name: 'Kamar Double', capacity: 4, price: '600.000', image: '/kamar2.jpg' },
-  { id: 'k03', name: 'Kamar King', capacity: 8, price: '1.000.000', image: '/kamar3.jpg' },
+  { id: 'k01', name: 'Kamar Single', capacity: 2, price: '500.000', image: '/kamar1.jpg', description: 'Kamar nyaman untuk 2 orang dengan fasilitas lengkap.' },
+  { id: 'k02', name: 'Kamar Double', capacity: 4, price: '600.000', image: '/kamar2.jpg', description: 'Kamar luas untuk keluarga kecil dengan pemandangan indah.' },
+  { id: 'k03', name: 'Kamar King', capacity: 8, price: '1.000.000', image: '/kamar3.jpg', description: 'Kamar mewah dengan tempat tidur king size dan fasilitas premium.' },
 ];
 
 const BookingPage = () => {
@@ -34,7 +34,7 @@ const BookingPage = () => {
         {selectedRoom && (
           <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50 p-4 transition-opacity duration-300">
             <div className="bg-white p-6 rounded-lg shadow-xl max-w-md w-full relative animate-fade-in-down">
-               <button
+              <button
                 onClick={handleCloseForm}
                 className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-2xl font-bold"
                 aria-label="Tutup"
@@ -64,7 +64,7 @@ const BookingPage = () => {
               />
               <div className="p-5 flex flex-col flex-grow">
                 <h3 className="text-2xl font-semibold text-gray-900 mb-2">{room.name}</h3>
-                {/* Menampilkan Kapasitas Kamar */}
+                <p className="text-gray-600 mb-2 text-sm">{room.description}</p>
                 <p className="text-gray-600 mb-1 text-sm">
                   <span className="font-medium">Kapasitas:</span> {room.capacity} orang
                 </p>
