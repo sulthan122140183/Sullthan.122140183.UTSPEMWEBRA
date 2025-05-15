@@ -14,9 +14,24 @@ const LoginPage = () => {
       alert('Email dan password wajib diisi.');
       return;
     }
-    const success = login(email, password); // Asumsi login() mengembalikan boolean
+    // Asumsi login() adalah fungsi asynchronous atau mengembalikan boolean secara sinkron
+    // Jika login() adalah async:
+    // try {
+    //   const success = await login(email, password);
+    //   if (success) {
+    //     navigate('/');
+    //   } else {
+    //     alert('Email atau password salah.');
+    //   }
+    // } catch (error) {
+    //   console.error("Login error:", error);
+    //   alert('Terjadi kesalahan saat login.');
+    // }
+
+    // Jika login() adalah sinkron dan mengembalikan boolean:
+    const success = login(email, password);
     if (success) {
-      navigate('/'); // Navigasi ke halaman utama setelah login berhasil
+      navigate('/');
     } else {
       alert('Email atau password salah.');
     }
@@ -24,36 +39,19 @@ const LoginPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
-      {/* Kolom Kiri (Dekoratif) */}
-      <div className="hidden md:flex md:w-3/5 bg-gradient-to-br from-indigo-600 via-blue-700 to-blue-900 text-white p-8 md:p-12 lg:p-16 flex flex-col justify-between">
+      {/* Kolom Kiri (Dekoratif) - Warna Biru Elegan */}
+      <div className="hidden md:flex md:w-3/5 bg-gradient-to-br from-blue-700 via-blue-800 to-blue-900 text-white p-8 md:p-12 lg:p-16 flex flex-col justify-between">
         <div>
-          <h1 className="text-3xl font-bold">DecideHub</h1>
+          <h1 className="text-3xl font-bold">Echo Beach Camp</h1>
           {/* Anda bisa menambahkan logo sebagai SVG atau <img> di sini */}
         </div>
-        <div className="my-auto max-w-md">
-          <h2 className="text-4xl lg:text-5xl font-bold leading-tight mb-4">
-            Decide faster<br />so you can do more
-          </h2>
-          <p className="text-indigo-200 text-lg mb-8">
-            {/* Placeholder untuk deskripsi atau sub-tagline jika ada */}
-          </p>
-          {/* Anda bisa menambahkan ilustrasi sebagai SVG atau <img> di sini */}
-          {/* Contoh: <img src="/path-to-your-illustration.svg" alt="Illustration" className="w-full opacity-80" /> */}
-        </div>
-        <div>
-          <a href="#mingly-info" className="text-sm hover:underline text-indigo-200 flex items-center">
-            {/* Ganti #mingly-info dengan link yang relevan */}
-            {/* Anda bisa menambahkan ikon di sini jika mau, contoh: */}
-            {/* <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="..."></path></svg> */}
-            What is Mingly?
-          </a>
-        </div>
+
       </div>
 
       {/* Kolom Kanan (Form Login) */}
       <div className="w-full md:w-2/5 flex items-center justify-center bg-white p-8 md:p-12 lg:p-16">
         <div className="max-w-sm w-full">
-          <h2 className="text-3xl font-bold mb-8 text-gray-800">Log in</h2>
+          <h2 className="text-3xl font-bold mb-8 text-gray-800 text-left">Log in</h2>
           
           {/* Form Login */}
           <form onSubmit={handleSubmit} className="space-y-7">
@@ -67,33 +65,37 @@ const LoginPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-4 py-3 border-b border-gray-300 focus:outline-none focus:border-red-500 placeholder-gray-400"
+                className="w-full px-4 py-3 border-b border-gray-300 focus:outline-none focus:border-red-500 placeholder-gray-400 transition-colors"
                 placeholder="name@company.com"
               />
             </div>
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                Password
-              </label>
+              <div className="flex justify-between items-baseline mb-1">
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                  Password
+                </label>
+              </div>
               <input
                 type="password"
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full px-4 py-3 border-b border-gray-300 focus:outline-none focus:border-red-500 placeholder-gray-400"
+                className="w-full px-4 py-3 border-b border-gray-300 focus:outline-none focus:border-red-500 placeholder-gray-400 transition-colors"
                 placeholder="••••••••"
               />
               <div className="text-right mt-2">
-                <a href="#forgot-password" /* Ganti #forgot-password dengan link yang relevan */
-                   className="text-xs text-gray-500 hover:underline hover:text-red-600">
+                <a
+                  href="#forgot-password" // Ganti dengan link yang relevan
+                  className="text-xs text-gray-500 hover:underline hover:text-red-600"
+                >
                   Forgot password?
                 </a>
               </div>
             </div>
             <button
               type="submit"
-              className="w-full bg-red-500 text-white py-3 rounded-md hover:bg-red-600 transition duration-200 font-semibold text-sm"
+              className="w-full bg-red-600 text-white py-3 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all duration-150 ease-in-out font-semibold text-sm"
             >
               Log in
             </button>
@@ -101,15 +103,13 @@ const LoginPage = () => {
 
           <p className="mt-8 text-center text-sm text-gray-600">
             Don't have an account?{' '}
-            <Link to="/register" className="font-medium text-red-500 hover:underline">
+            <Link to="/register" className="font-medium text-red-600 hover:underline">
               Sign Up
             </Link>
           </p>
           
-          {/* Placeholder untuk logo/link "needflow" jika diperlukan */}
           <p className="mt-12 text-center text-xs text-gray-400">
-            {/* <a href="#needflow" className="hover:underline">needflow</a> */}
-            {/* Atau &copy; DecideHub / needflow */}
+            &copy; {new Date().getFullYear()} Echo Beach Camp. All rights reserved.
           </p>
         </div>
       </div>
